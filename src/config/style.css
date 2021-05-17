@@ -3,5 +3,6 @@ canvas {
 }
 
 #game {
+  width: fit-content;
   margin: auto;
 }
