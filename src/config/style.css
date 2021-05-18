@@ -1,8 +1,8 @@
 canvas {
-  margin: auto;
+  /* margin: auto; */
 }
-
-#game {
-  width: fit-content;
-  margin: auto;
+body {
+  margin: 0;
+  padding: 0;
+  /* width: 100%; */
 }
