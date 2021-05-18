@@ -1,11 +1,13 @@
 import player from './../../assets/player.png'
 import bg1 from './../../assets/bg1.jpg'
 import enemy1 from './../../assets/enemy1.png'
+import enemy2 from './../../assets/to transform/enemy2.png'
 // import enemy0 from './../../assets/enemy0.jpg'
 
 
 import Player from './../../Entities/Player'
 import Enemy1 from './../../Entities/Enemy1'
+import Enemy2 from './../../Entities/Enemy2'
 
 
 export default class GameScene extends Phaser.Scene {
@@ -17,6 +19,7 @@ export default class GameScene extends Phaser.Scene {
     this.load.image('test-img', bg1)
     this.load.image('player', player)
     this.load.image('enemy1', enemy1)
+    this.load.image('enemy2', enemy2)
   }
 
   create(){   // 480, 620
@@ -49,10 +52,29 @@ export default class GameScene extends Phaser.Scene {
       callbackScope: this,
       loop: true
     });
+
+    this.time.addEvent({
+      delay: 1500,
+      callback: function() {
+        var enemy = null;
+        
+        enemy = new Enemy2(
+          this,
+          Phaser.Math.Between(17, this.game.config.width-17), 34,
+          'enemy2'
+          )
+          // enemy.scale = 1.5
+          // enemy.angle = 180
+          this.enemies.add(enemy);
+      },
+      callbackScope: this,
+      loop: true
+    });
   
   }
   
   update(){
+
     this.player.update();
     if (this.cursor.left.isDown){
       this.player.moveLeft()
@@ -63,6 +85,23 @@ export default class GameScene extends Phaser.Scene {
     }else if (this.cursor.down.isDown){
       this.player.moveDown()
     }
+
+
+    for (var i = 0; i < this.enemies.getChildren().length; i++) {
+      let enemy = this.enemies.getChildren()[i];
+
+      if (enemy.x < -enemy.displayWidth*1.5 ||
+        enemy.x > this.game.config.width + enemy.displayWidth *1.5 ||
+        enemy.y < -enemy.displayHeight * 1.5 ||
+        enemy.y > this.game.config.height + enemy.displayHeight*1.5) {
+    
+        enemy.destroy();
+      
+      }
+    }
+
+
+
   }
 
 }
