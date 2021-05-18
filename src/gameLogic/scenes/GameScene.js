@@ -5,9 +5,9 @@ import bg1 from './../../assets/bg1.jpg'
 
 
 
-export default class MainScene extends Phaser.Scene {
+export default class GameScene extends Phaser.Scene {
   constructor() {
-    super({ key: "MainScene" });
+    super({ key: "GameScene" });
   }
   
   preload(){
@@ -16,8 +16,11 @@ export default class MainScene extends Phaser.Scene {
     // this.load.image('enemy1', enemy1)
   }
 
-  create(){
-    // this.add.image(320, 240,'test-img')
+  create(){   // 480, 620
+    this.bg = this.add.image(240, 310,'test-img')
+    this.bg.scale = 1.29
+    console.log(this.bg)
+
     // this.player = this.add.image(320, 394, 'player' )
     // this.player.scale = 0.5
     // this.enemy0 = this.add.image(320, 90, 'enemy1' )
@@ -29,7 +32,6 @@ export default class MainScene extends Phaser.Scene {
   }
   
   update(){
-    // this.enemy0.angle -= 0.1
 
   }
 

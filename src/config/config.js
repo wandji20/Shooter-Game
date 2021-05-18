@@ -2,16 +2,14 @@ import Phaser from 'phaser'
 
 export default {
     type: Phaser.AUTO,
-    // width: 640,
-    // height: 480,
     scale: {
       parent: 'game',
-      mode: Phaser.Scale.NO_SCALE,
-      width: 640,
-      height: 480
+      mode: Phaser.Scale.NONE,
+      autoCenter: Phaser.Scale.CENTER_BOTH,
+      width: 480,
+      height: 620
     },
 
-    // backgroundColor: "black",
     physics: {
       default: 'arcade',
       arcade: {
@@ -21,5 +19,4 @@ export default {
 
     pixelArt: true,
     roundPixels: true,
-    // zoom: 0,
   };
