@@ -1,4 +1,4 @@
-import Entity from './SampleEntity'
+import Entity from './Entity'
 
 export default class Player extends Entity {
   constructor(scene, x, y, key, type){
@@ -8,22 +8,18 @@ export default class Player extends Entity {
 
   moveUp() {
     this.body.velocity.y = -this.getData("speed");
-    // this.body.y -= 2;
   }
   
   moveDown() {
     this.body.velocity.y = this.getData("speed");
-    // this.body.y += 2
   }
   
   moveLeft() {
     this.body.velocity.x = -this.getData("speed");
-    // this.body.x -= 2
   }
   
   moveRight() {
     this.body.velocity.x = this.getData("speed");
-    // this.body.x += 2
   }
 
   update(){
