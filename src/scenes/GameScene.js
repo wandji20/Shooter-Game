@@ -11,6 +11,8 @@ import enemy1 from '../assets/enemy1.png';
 import enemy2 from '../assets/enemy2.png';
 import enemy3 from '../assets/enemy3.png';
 import player from '../assets/player.png';
+import explosion1 from '../assets/explosion1.png';
+import explosion2 from '../assets/explosion2.png';
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -25,6 +27,16 @@ export default class GameScene extends Phaser.Scene {
     this.load.image('enemy3', enemy3);
     this.load.image('bullet1', bullet1);
     this.load.image('bullet2', bullet2);
+
+
+    this.load.spritesheet('explosion1', explosion1, {
+      frameWidth: 90,
+      frameHeight: 89
+    });
+    this.load.spritesheet('explosion2', explosion2, {
+      frameWidth: 57,
+      frameHeight: 45
+    });
   }
 
   create() { // 480, 620
@@ -38,7 +50,23 @@ export default class GameScene extends Phaser.Scene {
     this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
     this.enemies = this.add.group();
-    this.Bullets = this.add.group();
+    this.enemyBullets = this.add.group();
+    this.playerBullets = this.add.group();
+
+    this.anims.create({
+      key: "explosion1",
+      // frames: this.anims.generateFrameNumbers("explosion1"),
+      frames: this.anims.generateFrameNumbers('explosion1', { start: 2, end: 6 }),
+      frameRate: 20,
+      repeat: 0
+    });
+    this.anims.create({
+      key: "explosion2",
+      frames: this.anims.generateFrameNumbers('explosion2', { start: 3, end: 5 }),
+      // frames: this.anims.generateFrameNumbers("explosion2"),
+      frameRate: 20,
+      repeat: 0
+    });
 
     this.time.addEvent({
       delay: 1000,
@@ -78,6 +106,25 @@ export default class GameScene extends Phaser.Scene {
       callbackScope: this,
       loop: true,
     });
+
+    this.physics.add.collider(this.playerBullets, this.enemies, function(playerBullet, enemy) {
+      if (enemy) {
+        if (enemy.onDestroy !== undefined) {
+          enemy.onDestroy();
+        }
+        enemy.explode();
+        playerBullet.destroy();
+      }
+    });
+
+    this.physics.add.overlap(this.player, this.enemyBullets, function(player, bullet) {
+      if (!player.getData("isDead") &&
+          !bullet.getData("isDead")) {
+        player.explode(false);
+        bullet.destroy();
+        // this.pause()
+      }
+    });
   }
 
   update() {
@@ -101,7 +148,8 @@ export default class GameScene extends Phaser.Scene {
       this.player.setData('isShooting', false);
     }
 
-    this.removeSprites(this.Bullets);
+    this.removeSprites(this.playerBullets);
+    this.removeSprites(this.enemyBullets);
     this.removeSprites(this.enemies);
   }
 

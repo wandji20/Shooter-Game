@@ -7,8 +7,8 @@ export default class Player extends Entity {
     super(scene, x, y, key, 'Player');
     this.setData('speed', 200);
     this.setData('isShooting', false);
-    this.setData('timerShootDelay', 10);
-    this.setData('timerShootTick', this.getData('timerShootDelay') - 1);
+    this.setData('timerShootDelay', 5);
+    this.setData('timerShootTick', this.getData('timerShootDelay') - 0.5);
   }
 
   moveUp() {
@@ -34,7 +34,7 @@ export default class Player extends Entity {
         this.setData('timerShootTick', this.getData('timerShootTick') + 1);
       } else {
         const bullet = new PlayerBullet(this.scene, this.x, this.y);
-        this.scene.Bullets.add(bullet);
+        this.scene.playerBullets.add(bullet);
 
         this.setData('timerShootTick', 0);
       }

@@ -16,7 +16,7 @@ export default class Enemy1 extends Entity {
           this.y,
         );
         bullet.setScale(this.scaleX);
-        this.scene.Bullets.add(bullet);
+        this.scene.enemyBullets.add(bullet);
       },
       callbackScope: this,
       loop: true,
