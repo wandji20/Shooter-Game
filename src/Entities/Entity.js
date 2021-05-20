@@ -1,10 +1,18 @@
-export default class Entity extends Phaser.GameObjects.Sprite{
-  constructor(scene, x, y, key, type){
-    super(scene, x, y, key)
+export default class Entity extends Phaser.GameObjects.Sprite {
+  constructor(scene, x, y, key, type) {
+    super(scene, x, y, key);
     this.scene = scene;
     this.scene.add.existing(this);
     this.scene.physics.world.enableBody(this, 0);
-    this.setData("type", type);
-    this.setData("isDead", false);
+    this.setData('type', type);
+    this.setData('isDead', false);
+  }
+
+  onDestroy() {
+    if (this.shootTimer !== undefined) {
+      if (this.shootTimer) {
+        this.shootTimer.remove(false);
+      }
+    }
   }
 }
