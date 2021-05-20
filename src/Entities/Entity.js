@@ -16,7 +16,7 @@ export default class Entity extends Phaser.GameObjects.Sprite {
     }
   }
 
-  explode() {
+  explode(canDestroy) {
     if (!this.getData("isDead")) {
       // Set the texture to the explosion image, then play the animation
       this.setTexture("explosion1");  // this refers to the same animation key we used when we added this.anims.create previously
@@ -35,7 +35,7 @@ export default class Entity extends Phaser.GameObjects.Sprite {
       this.body.setVelocity(0, 0);
 
       this.on('animationcomplete', 
-      function canDestroy() {
+      function () {
 
         if (canDestroy) {
           this.destroy();

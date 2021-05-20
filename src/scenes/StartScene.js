@@ -15,7 +15,7 @@ export default class StartScene extends Phaser.Scene {
   }
 
   create() {
-    // this.scene.start("GameScene");
+    
     this.btnPlay = this.add.sprite(
       this.game.config.width * 0.5,
       this.game.config.height * 0.5,

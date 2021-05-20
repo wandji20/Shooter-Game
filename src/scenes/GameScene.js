@@ -5,6 +5,7 @@ import Enemy2 from '../Entities/Enemy2';
 import Enemy3 from '../Entities/Enemy3';
 import ScrollingBackground from '../Entities/ScrollingBackground';
 
+
 import background from '../assets/bg1.jpg';
 import bullet1 from '../assets/bullet1.png';
 import bullet2 from '../assets/bullet2.png';
@@ -122,7 +123,7 @@ export default class GameScene extends Phaser.Scene {
         if (enemy.onDestroy !== undefined) {
           enemy.onDestroy();
         }
-        enemy.explode();
+        enemy.explode(true);
         playerBullet.destroy();
       }
     });
@@ -130,40 +131,44 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.enemyBullets, function(player, bullet) {
       if (!player.getData("isDead") &&
           !bullet.getData("isDead")) {
-        // player.explode(false);
-        // bullet.destroy();
+
+            player.explode(false);
+            player.onDestroy();
       }
     });
   }
 
   update() {
-    this.player.update();
+    if (!this.player.getData('isDead')) {
 
-    if (this.cursors.up.isDown) {
-      this.player.moveUp();
-    } else if (this.cursors.down.isDown) {
-      this.player.moveDown();
+      this.player.update();
+      if (this.cursors.up.isDown) {
+        this.player.moveUp();
+      } else if (this.cursors.down.isDown) {
+        this.player.moveDown();
+      }
+  
+      if (this.cursors.left.isDown) {
+        this.player.moveLeft();
+      } else if (this.cursors.right.isDown) {
+        this.player.moveRight();
+      }
+      if (this.keySpace.isDown) {
+        this.player.setData('isShooting', true);
+      } else {
+        this.player.setData('timerShootTick', this.player.getData('timerShootDelay') - 1);
+        this.player.setData('isShooting', false);
+      }
     }
 
-    if (this.cursors.left.isDown) {
-      this.player.moveLeft();
-    } else if (this.cursors.right.isDown) {
-      this.player.moveRight();
-    }
-    if (this.keySpace.isDown) {
-      this.player.setData('isShooting', true);
-    } else {
-      this.player.setData('timerShootTick', this.player.getData('timerShootDelay') - 1);
-      this.player.setData('isShooting', false);
-    }
 
     this.removeSprites(this.playerBullets);
     this.removeSprites(this.enemyBullets);
     this.removeSprites(this.enemies);
 
-    // for (var i = 0; i < this.backgrounds.length; i++) {
-    //   this.backgrounds[i].update();
-    // }
+    for (var i = 0; i < this.backgrounds.length; i++) {
+      this.backgrounds[i].update();
+    }
   }
 
   removeSprites(parent) {
