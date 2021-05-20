@@ -8,9 +8,11 @@ class MyShooterGame extends Phaser.Game {
   constructor() {
     super(config);
 
+    this.scene.add('StartScene', StartScene);
     this.scene.add('GameScene', GameScene);
-    this.scene.start('GameScene');
+    this.scene.start('StartScene');
   }
 }
 
 window.game = new MyShooterGame();
+console.log(window.game.scene)

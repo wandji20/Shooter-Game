@@ -3,6 +3,7 @@ import Player from '../Entities/Player';
 import Enemy1 from '../Entities/Enemy1';
 import Enemy2 from '../Entities/Enemy2';
 import Enemy3 from '../Entities/Enemy3';
+import ScrollingBackground from '../Entities/ScrollingBackground';
 
 import background from '../assets/bg1.jpg';
 import bullet1 from '../assets/bullet1.png';
@@ -13,6 +14,8 @@ import enemy3 from '../assets/enemy3.png';
 import player from '../assets/player.png';
 import explosion1 from '../assets/explosion1.png';
 import explosion2 from '../assets/explosion2.png';
+import bg2 from '../assets/bg2.png';
+
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -27,6 +30,8 @@ export default class GameScene extends Phaser.Scene {
     this.load.image('enemy3', enemy3);
     this.load.image('bullet1', bullet1);
     this.load.image('bullet2', bullet2);
+    this.load.image('bg2', bg2);
+
 
 
     this.load.spritesheet('explosion1', explosion1, {
@@ -40,8 +45,13 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create() { // 480, 620
-    this.background = this.add.image(240, 310, 'background');
-    this.background.scale = 1.4;
+
+
+    this.backgrounds = [];
+    for (let i = 0; i < 5; i++) { // create five scrolling backgrounds
+      let bg = new ScrollingBackground(this, "bg2", i * 10);
+      this.backgrounds.push(bg);
+    }
 
     this.player = new Player(this, 240, 579, 'player');
     this.player.scale = 0.5;
@@ -120,9 +130,8 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.enemyBullets, function(player, bullet) {
       if (!player.getData("isDead") &&
           !bullet.getData("isDead")) {
-        player.explode(false);
-        bullet.destroy();
-        // this.pause()
+        // player.explode(false);
+        // bullet.destroy();
       }
     });
   }
@@ -151,6 +160,10 @@ export default class GameScene extends Phaser.Scene {
     this.removeSprites(this.playerBullets);
     this.removeSprites(this.enemyBullets);
     this.removeSprites(this.enemies);
+
+    // for (var i = 0; i < this.backgrounds.length; i++) {
+    //   this.backgrounds[i].update();
+    // }
   }
 
   removeSprites(parent) {
