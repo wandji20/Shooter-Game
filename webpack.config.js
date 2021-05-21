@@ -1,4 +1,5 @@
 const path = require('path');
+const SoundsPlugin = require('sounds-webpack-plugin')
 
 module.exports = {
   mode: 'development',
@@ -34,6 +35,14 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.(mp3|ogg|wav)$/i,
+        loader: 'file-loader',
+        options: {
+          name: '[path][name].[ext]',
+        },
+      },
     ],
   },
+  plugins: [new SoundsPlugin()],
 };

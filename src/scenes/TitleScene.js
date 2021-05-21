@@ -49,6 +49,17 @@ export default class TitleScene extends Phaser.Scene {
       this.scene.start('Credits');
     }.bind(this));
 
+
+
+
+    this.model = this.sys.game.globals.model;
+    if (this.model.musicOn === true && this.model.bgMusicPlaying === false) {
+      this.bgMusic = this.sound.add('bgMusic', { volume: 0.5, loop: true });
+      this.bgMusic.play();
+      this.model.bgMusicPlaying = true;
+      this.sys.game.globals.bgMusic = this.bgMusic;
+    }
+
     // this.input.on('pointerover', function (event, gameObjects) {
     //   // gameObjects[0].setTexture('blueButton2');
     // });

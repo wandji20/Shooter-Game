@@ -15,6 +15,8 @@ import user from '../assets/user.png';
 import sound_active from '../assets/sound_active.png' 
 import sound_inactive from '../assets/sound_inactive.png' 
 
+import bgMusic from './../assets/bgMusic.mp3'
+
 
 export default class PreloaderScene extends Phaser.Scene {
   constructor () {
@@ -101,6 +103,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('user', user);
     this.load.image('sound_active', sound_active)
     this.load.image('sound_inactive', sound_inactive)
+    this.load.audio('bgMusic', bgMusic)
     
 
     this.load.spritesheet('explosion1', explosion1, {
@@ -120,7 +123,7 @@ export default class PreloaderScene extends Phaser.Scene {
   ready () {
     	
    	
-    this.scene.start('Options');
+this.scene.start('Title');
     this.readyCount+=1;
     if (this.readyCount === 2) {
       this.scene.start('Title');
