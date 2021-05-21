@@ -21,9 +21,9 @@ class MyShooterGame extends Phaser.Game {
     this.scene.add('StartScene', StartScene);
     this.scene.add('GameScene', GameScene);
     this.scene.add('GameOverScene', GameOverScene);
-    this.scene.start('StartScene');
+    this.scene.start('Boot');
   }
 }
 
 window.game = new MyShooterGame();
-// console.log(window.game.scene);
+console.log(window.game.scene);

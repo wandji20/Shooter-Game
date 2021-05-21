@@ -5,16 +5,16 @@ import Enemy2 from '../Entities/Enemy2';
 import Enemy3 from '../Entities/Enemy3';
 // import ScrollingBackground from '../Entities/ScrollingBackground';
 
-import background from '../assets/bg1.jpg';
-import bullet1 from '../assets/bullet1.png';
-import bullet2 from '../assets/bullet2.png';
-import enemy1 from '../assets/enemy1.png';
-import enemy2 from '../assets/enemy2.png';
-import enemy3 from '../assets/enemy3.png';
-import player from '../assets/player.png';
-import explosion1 from '../assets/explosion1.png';
-import explosion2 from '../assets/explosion2.png';
-import bg2 from '../assets/bg2.png';
+// import background from '../assets/bg1.jpg';
+// import bullet1 from '../assets/bullet1.png';
+// import bullet2 from '../assets/bullet2.png';
+// import enemy1 from '../assets/enemy1.png';
+// import enemy2 from '../assets/enemy2.png';
+// import enemy3 from '../assets/enemy3.png';
+// import player from '../assets/player.png';
+// import explosion1 from '../assets/explosion1.png';
+// import explosion2 from '../assets/explosion2.png';
+// import bg2 from '../assets/bg2.png';
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -22,23 +22,23 @@ export default class GameScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('background', background);
-    this.load.image('player', player);
-    this.load.image('enemy1', enemy1);
-    this.load.image('enemy2', enemy2);
-    this.load.image('enemy3', enemy3);
-    this.load.image('bullet1', bullet1);
-    this.load.image('bullet2', bullet2);
-    this.load.image('bg2', bg2);
+    // this.load.image('background', background);
+    // this.load.image('player', player);
+    // this.load.image('enemy1', enemy1);
+    // this.load.image('enemy2', enemy2);
+    // this.load.image('enemy3', enemy3);
+    // this.load.image('bullet1', bullet1);
+    // this.load.image('bullet2', bullet2);
+    // this.load.image('bg2', bg2);
 
-    this.load.spritesheet('explosion1', explosion1, {
-      frameWidth: 90,
-      frameHeight: 89,
-    });
-    this.load.spritesheet('explosion2', explosion2, {
-      frameWidth: 57,
-      frameHeight: 45,
-    });
+    // this.load.spritesheet('explosion1', explosion1, {
+    //   frameWidth: 90,
+    //   frameHeight: 89,
+    // });
+    // this.load.spritesheet('explosion2', explosion2, {
+    //   frameWidth: 57,
+    //   frameHeight: 45,
+    // });
   }
 
   create() { // 480, 620
