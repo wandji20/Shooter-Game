@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import Button from './../objects/user'
  
 export default class OptionsScene extends Phaser.Scene {
   constructor () {
@@ -45,13 +46,8 @@ export default class OptionsScene extends Phaser.Scene {
     
     this.updateAudio();
 
-    this.menuButton = this.add.sprite(240, 500, 'user').setInteractive();
-    this.menuText = this.add.text(0, 0, 'Menu', { fontSize: '32px', fill: '#fff' });
-    Phaser.Display.Align.In.Center(this.menuText, this.menuButton);
-    
-    this.menuButton.on('pointerdown', function (pointer) {
-      this.scene.start('Title');
-    }.bind(this));
+    	
+    this.menuButton = new Button(this, 240, 500, 'user', 'Menu', 'Title');
   }
 
   updateAudio() {

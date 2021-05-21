@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import ScrollingBackground from '../Entities/ScrollingBackground';
+import Button from './../objects/user'
  
 export default class TitleScene extends Phaser.Scene {
   constructor () {
@@ -16,41 +17,39 @@ export default class TitleScene extends Phaser.Scene {
       const bg = new ScrollingBackground(this, key, i * 10);
       this.backgrounds.push(bg);
     }
-    this.gameButton = this.add.sprite(100, 200, 'user').setInteractive();
-    this.centerButton(this.gameButton, 1);
-     
-    this.gameText = this.add.text(0, 0, 'Play', { fontSize: '32px', fill: '#fff' });
-    this.centerButtonText(this.gameText, this.gameButton);
 
-    this.gameButton.on('pointerdown', function (pointer) {
-      this.scene.start('GameScene');
-    }.bind(this));
+    this.gameButton = new Button
+    (
+      this, 
+      240, 
+      200, 
+      'user', 
+      'Play', 
+      'GameScene'
+    )
 
     // Options
-    this.optionsButton = this.add.sprite(300, 200, 'user').setInteractive();
-    this.centerButton(this.optionsButton);
-     
-    this.optionsText = this.add.text(0, 0, 'Options', { fontSize: '32px', fill: '#fff' });
-    this.centerButtonText(this.optionsText, this.optionsButton);
-     
-    this.optionsButton.on('pointerdown', function (pointer) {
-      this.scene.start('Options');
-    }.bind(this));
-
-
+    this.optionsButton = new Button
+    (
+      this, 
+      240, 
+      300, 
+      'user', 
+      'Options', 
+      'Options'
+    )
+  
     // Credits
-    this.creditsButton = this.add.sprite(300, 200, 'user').setInteractive();
-    this.centerButton(this.creditsButton, -1);
+    this.creditsButton = new Button
+    (
+      this, 
+      240, 
+      400, 
+      'user', 
+      'Credits', 
+      'Credits'
+    );
     
-    this.creditsText = this.add.text(0, 0, 'Credits', { fontSize: '32px', fill: '#fff' });
-    this.centerButtonText(this.creditsText, this.creditsButton);
-    
-    this.creditsButton.on('pointerdown', function (pointer) {
-      this.scene.start('Credits');
-    }.bind(this));
-
-
-
 
     this.model = this.sys.game.globals.model;
     if (this.model.musicOn === true && this.model.bgMusicPlaying === false) {
@@ -68,21 +67,7 @@ export default class TitleScene extends Phaser.Scene {
     //   gameObjects[0].setTexture('blueButton1');
     // });
   }
-
-  centerButton (gameObject, offset = 0) {
-    Phaser.Display.Align.In.Center(
-      gameObject,
-      this.add.zone(this.game.config.width/2, this.game.config.height/2 - offset * 100, this.game.config.width, this.game.config.height)
-    );
-  }
-   
-  centerButtonText (gameText, gameButton) {
-    Phaser.Display.Align.In.Center(
-      gameText,
-      gameButton
-    );
-  }
-
+  
   update() {
     for (let i = 0; i < this.backgrounds.length; i += 1) {
       this.backgrounds[i].update();
