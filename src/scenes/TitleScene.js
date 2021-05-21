@@ -1,13 +1,13 @@
 import Phaser from 'phaser';
 import ScrollingBackground from '../Entities/ScrollingBackground';
-import Button from './../objects/user'
- 
+import Button from '../objects/user';
+
 export default class TitleScene extends Phaser.Scene {
-  constructor () {
+  constructor() {
     super('Title');
   }
- 
-  create () {
+
+  create() {
     this.background = this.add.image(240, 310, 'bg3');
     this.background.scale = 1.1;
     this.backgrounds = [];
@@ -18,38 +18,34 @@ export default class TitleScene extends Phaser.Scene {
       this.backgrounds.push(bg);
     }
 
-    this.gameButton = new Button
-    (
-      this, 
-      240, 
-      200, 
-      'user', 
-      'Play', 
-      'GameScene'
-    )
+    this.gameButton = new Button(
+      this,
+      240,
+      200,
+      'user',
+      'Play',
+      'GameScene',
+    );
 
     // Options
-    this.optionsButton = new Button
-    (
-      this, 
-      240, 
-      300, 
-      'user', 
-      'Options', 
-      'Options'
-    )
-  
-    // Credits
-    this.creditsButton = new Button
-    (
-      this, 
-      240, 
-      400, 
-      'user', 
-      'Credits', 
-      'Credits'
+    this.optionsButton = new Button(
+      this,
+      240,
+      300,
+      'user',
+      'Options',
+      'Options',
     );
-    
+
+    // Credits
+    this.creditsButton = new Button(
+      this,
+      240,
+      400,
+      'user',
+      'Credits',
+      'Credits',
+    );
 
     this.model = this.sys.game.globals.model;
     if (this.model.musicOn === true && this.model.bgMusicPlaying === false) {
@@ -62,15 +58,15 @@ export default class TitleScene extends Phaser.Scene {
     // this.input.on('pointerover', function (event, gameObjects) {
     //   // gameObjects[0].setTexture('blueButton2');
     // });
-     
+
     // this.input.on('pointerout', function (event, gameObjects) {
     //   gameObjects[0].setTexture('blueButton1');
     // });
   }
-  
+
   update() {
     for (let i = 0; i < this.backgrounds.length; i += 1) {
       this.backgrounds[i].update();
     }
   }
-};
+}

@@ -1,5 +1,5 @@
 const path = require('path');
-const SoundsPlugin = require('sounds-webpack-plugin')
+const SoundsPlugin = require('sounds-webpack-plugin');
 
 module.exports = {
   mode: 'development',

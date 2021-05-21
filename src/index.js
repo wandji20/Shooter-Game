@@ -9,7 +9,7 @@ import PreloaderScene from './scenes/PreloaderScene';
 import TitleScene from './scenes/TitleScene';
 import OptionsScene from './scenes/OptionsScene';
 import CreditsScene from './scenes/CreditsScene';
-import Model from './Model/SoundModel'
+import Model from './Model/SoundModel';
 
 class MyShooterGame extends Phaser.Game {
   constructor() {
