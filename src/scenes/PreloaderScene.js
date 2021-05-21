@@ -12,7 +12,10 @@ import explosion2 from '../assets/explosion2.png';
 import bg2 from '../assets/bg2.png';
 import bg3 from '../assets/bg3.png';
 import user from '../assets/user.png';
- 
+import sound_active from '../assets/sound_active.png' 
+import sound_inactive from '../assets/sound_inactive.png' 
+
+
 export default class PreloaderScene extends Phaser.Scene {
   constructor () {
     super('Preloader');
@@ -20,14 +23,14 @@ export default class PreloaderScene extends Phaser.Scene {
  
   preload () {
     // display progress bar
-    var progressBar = this.add.graphics();
-    var progressBox = this.add.graphics();
+    let progressBar = this.add.graphics();
+    let progressBox = this.add.graphics();
     progressBox.fillStyle(0x222222, 0.8);
     progressBox.fillRect(240, 270, 320, 50);
   
-    var width = this.cameras.main.width;
-    var height = this.cameras.main.height;
-    var loadingText = this.make.text({
+    let width = this.cameras.main.width;
+    let height = this.cameras.main.height;
+    let loadingText = this.make.text({
       x: width / 2,
       y: height / 2 - 50,
       text: 'Loading...',
@@ -38,7 +41,7 @@ export default class PreloaderScene extends Phaser.Scene {
     });
     loadingText.setOrigin(0.5, 0.5);
   
-    var percentText = this.make.text({
+    let percentText = this.make.text({
       x: width / 2,
       y: height / 2 - 5,
       text: '0%',
@@ -49,7 +52,7 @@ export default class PreloaderScene extends Phaser.Scene {
     });
     percentText.setOrigin(0.5, 0.5);
   
-    var assetText = this.make.text({
+    let assetText = this.make.text({
       x: width / 2,
       y: height / 2 + 50,
       text: '',
@@ -96,6 +99,9 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('bg2', bg2);
     this.load.image('bg3', bg3);
     this.load.image('user', user);
+    this.load.image('sound_active', sound_active)
+    this.load.image('sound_inactive', sound_inactive)
+    
 
     this.load.spritesheet('explosion1', explosion1, {
       frameWidth: 90,
@@ -113,7 +119,8 @@ export default class PreloaderScene extends Phaser.Scene {
   
   ready () {
     	
-    this.scene.start('Credits');
+   	
+    this.scene.start('Options');
     this.readyCount+=1;
     if (this.readyCount === 2) {
       this.scene.start('Title');
