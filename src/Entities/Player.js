@@ -1,8 +1,9 @@
-import Phaser from 'phaser';
+// import Phaser from 'phaser';
 import Entity from './Entity';
 import PlayerBullet from './PlayerBullet';
 
 export default class Player extends Entity {
+  // eslint-disable-next-line no-unused-vars
   constructor(scene, x, y, key, type) {
     super(scene, x, y, key, 'Player');
     this.setData('speed', 200);
@@ -41,14 +42,14 @@ export default class Player extends Entity {
     }
   }
 
-  onDestroy(){
+  onDestroy() {
     this.scene.time.addEvent({ // go to game over scene
       delay: 1000,
-      callback: function() {
-        this.scene.scene.start("GameOverScene");
+      callback() {
+        this.scene.scene.start('GameOverScene');
       },
       callbackScope: this,
-      loop: false
+      loop: false,
     });
   }
 }

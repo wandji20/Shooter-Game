@@ -1,9 +1,9 @@
 import './config/style.css';
-import Phaser, { AUTO } from 'phaser';
+import Phaser from 'phaser';
 import config from './config/config';
 import StartScene from './scenes/StartScene';
 import GameScene from './scenes/GameScene';
-import GameOverScene from './scenes/GameOverScene'
+import GameOverScene from './scenes/GameOverScene';
 
 class MyShooterGame extends Phaser.Game {
   constructor() {
@@ -17,4 +17,4 @@ class MyShooterGame extends Phaser.Game {
 }
 
 window.game = new MyShooterGame();
-console.log(window.game.scene)
+// console.log(window.game.scene);

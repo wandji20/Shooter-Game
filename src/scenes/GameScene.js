@@ -3,8 +3,7 @@ import Player from '../Entities/Player';
 import Enemy1 from '../Entities/Enemy1';
 import Enemy2 from '../Entities/Enemy2';
 import Enemy3 from '../Entities/Enemy3';
-import ScrollingBackground from '../Entities/ScrollingBackground';
-
+// import ScrollingBackground from '../Entities/ScrollingBackground';
 
 import background from '../assets/bg1.jpg';
 import bullet1 from '../assets/bullet1.png';
@@ -16,7 +15,6 @@ import player from '../assets/player.png';
 import explosion1 from '../assets/explosion1.png';
 import explosion2 from '../assets/explosion2.png';
 import bg2 from '../assets/bg2.png';
-
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -33,29 +31,22 @@ export default class GameScene extends Phaser.Scene {
     this.load.image('bullet2', bullet2);
     this.load.image('bg2', bg2);
 
-
-
     this.load.spritesheet('explosion1', explosion1, {
       frameWidth: 90,
-      frameHeight: 89
+      frameHeight: 89,
     });
     this.load.spritesheet('explosion2', explosion2, {
       frameWidth: 57,
-      frameHeight: 45
+      frameHeight: 45,
     });
   }
 
   create() { // 480, 620
-
-
-    this.backgrounds = [];
-    for (let i = 0; i < 5; i++) { // create five scrolling backgrounds
-      let bg = new ScrollingBackground(this, "bg2", i * 10);
-      this.backgrounds.push(bg);
-    }
+    this.background = this.add.image(240, 310, 'background');
+    this.background.scale = 1.4;
 
     this.player = new Player(this, 240, 579, 'player');
-    this.player.scale = 0.5;
+    this.player.scale = 0.3;
     this.player.body.setCollideWorldBounds(true);
     this.cursors = this.input.keyboard.createCursorKeys();
     this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -65,18 +56,16 @@ export default class GameScene extends Phaser.Scene {
     this.playerBullets = this.add.group();
 
     this.anims.create({
-      key: "explosion1",
-      // frames: this.anims.generateFrameNumbers("explosion1"),
-      frames: this.anims.generateFrameNumbers('explosion1', { start: 2, end: 6 }),
+      key: 'explosion1',
+      frames: this.anims.generateFrameNumbers('explosion1', { start: 0, end: 10 }),
       frameRate: 20,
-      repeat: 0
+      repeat: 0,
     });
     this.anims.create({
-      key: "explosion2",
+      key: 'explosion2',
       frames: this.anims.generateFrameNumbers('explosion2', { start: 3, end: 5 }),
-      // frames: this.anims.generateFrameNumbers("explosion2"),
       frameRate: 20,
-      repeat: 0
+      repeat: 0,
     });
 
     this.time.addEvent({
@@ -95,15 +84,15 @@ export default class GameScene extends Phaser.Scene {
           if (this.getEnemiesByType('Enemy2').length < 3) {
             enemy = new Enemy2(
               this,
-              Phaser.Math.Between(9, this.game.config.width - 9),
+              Phaser.Math.Between(13, this.game.config.width - 13),
               0,
             );
-            enemy.angle = 90;
+            enemy.angle = 180;
           }
         } else {
           enemy = new Enemy3(
             this,
-            Phaser.Math.Between(11, this.game.config.width - 11),
+            Phaser.Math.Between(20, this.game.config.width - 20),
             0,
           );
           enemy.angle = 180;
@@ -118,7 +107,7 @@ export default class GameScene extends Phaser.Scene {
       loop: true,
     });
 
-    this.physics.add.collider(this.playerBullets, this.enemies, function(playerBullet, enemy) {
+    this.physics.add.collider(this.playerBullets, this.enemies, (playerBullet, enemy) => {
       if (enemy) {
         if (enemy.onDestroy !== undefined) {
           enemy.onDestroy();
@@ -128,26 +117,42 @@ export default class GameScene extends Phaser.Scene {
       }
     });
 
-    this.physics.add.overlap(this.player, this.enemyBullets, function(player, bullet) {
-      if (!player.getData("isDead") &&
-          !bullet.getData("isDead")) {
+    this.physics.add.collider(
+      this.playerBullets,
+      this.enemyBullets,
+      (playerBullet, enemyBullet) => {
+        if (enemyBullet && playerBullet) {
+          enemyBullet.destroy();
+          playerBullet.destroy();
+        }
+      },
+    );
 
-            player.explode(false);
-            player.onDestroy();
+    this.physics.add.overlap(this.player, this.enemyBullets, (player, bullet) => {
+      if (!player.getData('isDead')
+          && !bullet.getData('isDead')) {
+        player.explode(false);
+        player.onDestroy();
+      }
+    });
+    this.physics.add.overlap(this.player, this.enemies, (player, enemy) => {
+      if (!player.getData('isDead')
+          && !enemy.getData('isDead')) {
+        player.explode(false);
+        player.onDestroy();
       }
     });
   }
 
   update() {
     if (!this.player.getData('isDead')) {
-
       this.player.update();
       if (this.cursors.up.isDown) {
         this.player.moveUp();
       } else if (this.cursors.down.isDown) {
         this.player.moveDown();
       }
-  
+
       if (this.cursors.left.isDown) {
         this.player.moveLeft();
       } else if (this.cursors.right.isDown) {
@@ -161,14 +166,9 @@ export default class GameScene extends Phaser.Scene {
       }
     }
 
-
     this.removeSprites(this.playerBullets);
     this.removeSprites(this.enemyBullets);
     this.removeSprites(this.enemies);
-
-    for (var i = 0; i < this.backgrounds.length; i++) {
-      this.backgrounds[i].update();
-    }
   }
 
   removeSprites(parent) {
