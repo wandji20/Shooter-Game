@@ -1,6 +1,7 @@
 #game {
   width: 100%;
   margin: auto;
+  position: absolute;
 }
 
 body {
@@ -10,4 +11,16 @@ body {
 
 canvas {
   margin: auto;
+}
+
+#myText {
+  font-family: "monospace", sans-serif;
+  display: block;
+  margin: auto;
+  position: relative;
+  top: 339px;
+  text-align: center;
+  background-color: #999;
+  font-size: 18px;
+  font-weight: 700;
 }

@@ -6,7 +6,7 @@ export default class Player extends Entity {
   // eslint-disable-next-line no-unused-vars
   constructor(scene, x, y, key, type) {
     super(scene, x, y, key, 'Player');
-    this.setData('speed', 200);
+    this.setData('speed', 250);
     this.setData('isShooting', false);
     this.setData('timerShootDelay', 5);
     this.setData('timerShootTick', this.getData('timerShootDelay') - 0.5);

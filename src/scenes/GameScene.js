@@ -3,47 +3,27 @@ import Player from '../Entities/Player';
 import Enemy1 from '../Entities/Enemy1';
 import Enemy2 from '../Entities/Enemy2';
 import Enemy3 from '../Entities/Enemy3';
-// import ScrollingBackground from '../Entities/ScrollingBackground';
-
-import background from '../assets/bg1.jpg';
-import bullet1 from '../assets/bullet1.png';
-import bullet2 from '../assets/bullet2.png';
-import enemy1 from '../assets/enemy1.png';
-import enemy2 from '../assets/enemy2.png';
-import enemy3 from '../assets/enemy3.png';
-import player from '../assets/player.png';
-import explosion1 from '../assets/explosion1.png';
-import explosion2 from '../assets/explosion2.png';
-import bg2 from '../assets/bg2.png';
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
     super({ key: 'GameScene' });
   }
 
-  preload() {
-    this.load.image('background', background);
-    this.load.image('player', player);
-    this.load.image('enemy1', enemy1);
-    this.load.image('enemy2', enemy2);
-    this.load.image('enemy3', enemy3);
-    this.load.image('bullet1', bullet1);
-    this.load.image('bullet2', bullet2);
-    this.load.image('bg2', bg2);
-
-    this.load.spritesheet('explosion1', explosion1, {
-      frameWidth: 90,
-      frameHeight: 89,
-    });
-    this.load.spritesheet('explosion2', explosion2, {
-      frameWidth: 57,
-      frameHeight: 45,
-    });
+  init() {
+    this.score = 0;
   }
 
-  create() { // 480, 620
+  create() {
     this.background = this.add.image(240, 310, 'background');
     this.background.scale = 1.4;
+
+    this.scoreBoard = this.add.sprite(240, 20, 'user');
+    this.scoreBoard.depth = 100;
+    this.scoreBoard.scale = 0.75;
+
+    this.scoreValue = this.add.text(0, 0, `Score: ${this.score}`, { fontSize: '25px', fill: '#fff' });
+    this.scoreValue.depth = 101;
+    Phaser.Display.Align.In.Center(this.scoreValue, this.scoreBoard);
 
     this.player = new Player(this, 240, 579, 'player');
     this.player.scale = 0.3;
@@ -69,7 +49,7 @@ export default class GameScene extends Phaser.Scene {
     });
 
     this.time.addEvent({
-      delay: 1000,
+      delay: 1200,
       callback() {
         let enemy = null;
 
@@ -80,7 +60,7 @@ export default class GameScene extends Phaser.Scene {
             0,
           );
           enemy.angle = 180;
-        } else if (Phaser.Math.Between(0, 10) >= 5) {
+        } else if ((Phaser.Math.Between(0, 10) < 3) && this.score >= 50) {
           if (this.getEnemiesByType('Enemy2').length < 3) {
             enemy = new Enemy2(
               this,
@@ -89,7 +69,7 @@ export default class GameScene extends Phaser.Scene {
             );
             enemy.angle = 180;
           }
-        } else {
+        } else if (this.score >= 100) {
           enemy = new Enemy3(
             this,
             Phaser.Math.Between(20, this.game.config.width - 20),
@@ -110,6 +90,8 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.collider(this.playerBullets, this.enemies, (playerBullet, enemy) => {
       if (enemy) {
         if (enemy.onDestroy !== undefined) {
+          this.score += enemy.points;
+          this.scoreValue.setText(`Score: ${this.score}`);
           enemy.onDestroy();
         }
         enemy.explode(true);
@@ -131,6 +113,15 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.enemyBullets, (player, bullet) => {
       if (!player.getData('isDead')
           && !bullet.getData('isDead')) {
+        localStorage.setItem('MyShooterGamePlayerScore', `${this.score}`);
+        const highScore = localStorage.getItem('MyShooterGameHighScore');
+        if (highScore) {
+          const newHighScore = parseInt(highScore, 10) > this.score
+            ? parseInt(highScore, 10) : this.score;
+          localStorage.setItem('MyShooterGameHighScore', newHighScore);
+        } else {
+          localStorage.setItem('MyShooterGameHighScore', this.score);
+        }
         player.explode(false);
         player.onDestroy();
       }
@@ -139,6 +130,7 @@ export default class GameScene extends Phaser.Scene {
       if (!player.getData('isDead')
           && !enemy.getData('isDead')) {
         player.explode(false);
+        localStorage.setItem('MyShooterGamePlayerScore', `${this.score}`);
         player.onDestroy();
       }
     });
