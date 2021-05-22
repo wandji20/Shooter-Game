@@ -10,8 +10,6 @@
 
 ![screenshot](./src/assets/readme/playing.png)
 
-## [Check my Game Design Document](./docs/GDD.md)
-
 ## Built With
 
 - HTML
@@ -21,7 +19,7 @@
 - WEBPACK
 - Babel
 
-## [Live Link]()
+#### [Play Game](https://determined-shaw-27cf19.netlify.app/)
 
 ## Instructions to Play
 
