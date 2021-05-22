@@ -8,6 +8,7 @@ import PreloaderScene from './scenes/PreloaderScene';
 import TitleScene from './scenes/TitleScene';
 import OptionsScene from './scenes/OptionsScene';
 import CreditsScene from './scenes/CreditsScene';
+import PlayerScores from './scenes/PlayerScores';
 import PlayerInput from './scenes/PlayerInput';
 import Model from './Model/SoundModel';
 
@@ -21,6 +22,7 @@ class MyShooterGame extends Phaser.Game {
     this.scene.add('Credits', CreditsScene);
     this.scene.add('GameScene', GameScene);
     this.scene.add('PlayerInput', PlayerInput);
+    this.scene.add('PlayerScores', PlayerScores);
     this.scene.add('GameOverScene', GameOverScene);
     this.scene.start('Boot');
 

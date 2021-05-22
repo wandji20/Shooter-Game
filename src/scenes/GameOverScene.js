@@ -78,12 +78,12 @@ export default class GameOverScene extends Phaser.Scene {
       createPlayerScore(this);
     }
 
-    async function getplayers() {
+    async function getplayers(url) {
       const data = await getData(url);
       const players = data.result;
       return players;
     }
-    getplayers();
+    getplayers(url);
   }
 
   update() {
