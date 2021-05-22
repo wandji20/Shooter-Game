@@ -119,10 +119,13 @@ export default class PreloaderScene extends Phaser.Scene {
   }
 
   ready() {
-    this.scene.start('PlayerInput');
-    // this.readyCount += 1;
-    // if (this.readyCount === 1) {
-    //   this.scene.start('Title');
-    // }
+    if (localStorage.getItem('MyShooterGamePlayerName')){
+      this.readyCount += 1;
+      if (this.readyCount === 1) {
+        this.scene.start('Title');
+      }
+    }else{
+      this.scene.start('PlayerInput');
+    }
   }
 }

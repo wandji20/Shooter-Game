@@ -43,9 +43,10 @@ export default class PlayerInput extends Phaser.Scene{
     Phaser.Display.Align.In.Center(this.text, this.submit);
 
     this.submit.on('pointerdown', () => {
-      if (this.input.value !== ''){
+      if (/[a-z]/i.test(this.input.value) ){
         this.scene.start('GameScene');
         this.input.style.display = 'none'
+        localStorage.setItem('MyShooterGamePlayerName', this.input.value)
       }
     });
   }
