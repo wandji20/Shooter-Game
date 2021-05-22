@@ -14,7 +14,7 @@ canvas {
 }
 
 #myText {
-  font-family: "monospace";
+  font-family: "monospace", sans-serif;
   display: block;
   margin: auto;
   position: relative;
