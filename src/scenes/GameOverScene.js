@@ -23,6 +23,26 @@ export default class GameOverScene extends Phaser.Scene {
     });
     this.title.setOrigin(0.5);
 
+    this.myScore = parseInt(localStorage.getItem('MyShooterGamePlayerScore'))
+
+    this.highScore = this.add.text(this.game.config.width * 0.5, 200, `HIGH SCORE ${this.myScore}`, {
+      fontFamily: 'monospace',
+      fontSize: 30,
+      fontStyle: 'bold',
+      color: '#ffffff',
+      align: 'center',
+    });
+    this.highScore.setOrigin(0.5);
+
+    this.score = this.add.text(this.game.config.width * 0.5, 300, `SCORE ${this.myScore}`, {
+      fontFamily: 'monospace',
+      fontSize: 30,
+      fontStyle: 'bold',
+      color: '#ffffff',
+      align: 'center',
+    });
+    this.score.setOrigin(0.5);
+
     this.backgrounds = [];
     for (let i = 0; i < 5; i += 1) {
       const keys = ['bg2', 'bg2'];

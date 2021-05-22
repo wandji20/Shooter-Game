@@ -3,15 +3,27 @@ import Player from '../Entities/Player';
 import Enemy1 from '../Entities/Enemy1';
 import Enemy2 from '../Entities/Enemy2';
 import Enemy3 from '../Entities/Enemy3';
+// import {updateScore} from './../Score/score'
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
     super({ key: 'GameScene' });
+    this.score = 0
   }
 
   create() {
+
     this.background = this.add.image(240, 310, 'background');
     this.background.scale = 1.4;
+
+    this.scoreBoard = this.add.sprite(240, 20, 'user')
+    this.scoreBoard.depth = 100
+    this.scoreBoard.scale = 0.75 
+
+    this.scoreValue = this.add.text(0, 0, `Score: ${this.score}`, { fontSize: '25px', fill: '#fff' });
+    this.scoreValue.depth = 101
+    Phaser.Display.Align.In.Center(this.scoreValue, this.scoreBoard);
+
 
     this.player = new Player(this, 240, 579, 'player');
     this.player.scale = 0.3;
@@ -37,7 +49,7 @@ export default class GameScene extends Phaser.Scene {
     });
 
     this.time.addEvent({
-      delay: 1000,
+      delay: 1200,
       callback() {
         let enemy = null;
 
@@ -48,7 +60,7 @@ export default class GameScene extends Phaser.Scene {
             0,
           );
           enemy.angle = 180;
-        } else if (Phaser.Math.Between(0, 10) >= 5) {
+        } else if ((Phaser.Math.Between(0, 10) < 3) && this.score >=50) {
           if (this.getEnemiesByType('Enemy2').length < 3) {
             enemy = new Enemy2(
               this,
@@ -57,7 +69,7 @@ export default class GameScene extends Phaser.Scene {
             );
             enemy.angle = 180;
           }
-        } else {
+        } else if (this.score >=100){
           enemy = new Enemy3(
             this,
             Phaser.Math.Between(20, this.game.config.width - 20),
@@ -74,15 +86,19 @@ export default class GameScene extends Phaser.Scene {
       callbackScope: this,
       loop: true,
     });
+    
 
     this.physics.add.collider(this.playerBullets, this.enemies, (playerBullet, enemy) => {
       if (enemy) {
         if (enemy.onDestroy !== undefined) {
+          this.score += enemy.points
+          this.scoreValue.setText(`Score: ${this.score}`);
           enemy.onDestroy();
         }
         enemy.explode(true);
         playerBullet.destroy();
       }
+      
     });
 
     this.physics.add.collider(
@@ -101,12 +117,14 @@ export default class GameScene extends Phaser.Scene {
           && !bullet.getData('isDead')) {
         player.explode(false);
         player.onDestroy();
+        localStorage.setItem('MyShooterGamePlayerScore', `${this.score}`)
       }
     });
     this.physics.add.overlap(this.player, this.enemies, (player, enemy) => {
       if (!player.getData('isDead')
           && !enemy.getData('isDead')) {
         player.explode(false);
+        localStorage.setItem('MyShooterGamePlayerScore', `${this.score}`)
         player.onDestroy();
       }
     });
@@ -168,4 +186,5 @@ export default class GameScene extends Phaser.Scene {
     }
     return arr;
   }
+  
 }
