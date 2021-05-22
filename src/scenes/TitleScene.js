@@ -55,6 +55,15 @@ export default class TitleScene extends Phaser.Scene {
       this.sys.game.globals.bgMusic = this.bgMusic;
     }
 
+    // let body = document.querySelector("body")
+    // let input = body.appendChild(document.createElement('input'))
+    // input.setAttribute('id', 'myText')
+
+    // this.nameInput = this.add.sprite(240, 500, 'user')
+    
+
+
+
     // this.input.on('pointerover', function (event, gameObjects) {
     //   // gameObjects[0].setTexture('blueButton2');
     // });
@@ -63,6 +72,10 @@ export default class TitleScene extends Phaser.Scene {
     //   gameObjects[0].setTexture('blueButton1');
     // });
   }
+  // textAreaChanged() {
+  //   var text = this.formUtil.getTextAreaValue("area51");
+  //   console.log(text);
+  // }
 
   update() {
     for (let i = 0; i < this.backgrounds.length; i += 1) {
