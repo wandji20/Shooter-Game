@@ -118,9 +118,19 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.enemyBullets, (player, bullet) => {
       if (!player.getData('isDead')
           && !bullet.getData('isDead')) {
+  
+        localStorage.setItem('MyShooterGamePlayerScore', `${this.score}`)
+        let highScore = localStorage.getItem('MyShooterGameHighScore')
+        if (highScore){
+          let newHighScore = parseInt(highScore) > this.score ? parseInt(highScore) : this.score
+          localStorage.setItem('MyShooterGameHighScore', newHighScore)
+        }else{
+          localStorage.setItem('MyShooterGameHighScore', this.score)
+        }
         player.explode(false);
         player.onDestroy();
-        localStorage.setItem('MyShooterGamePlayerScore', `${this.score}`)
+
+      
       }
     });
     this.physics.add.overlap(this.player, this.enemies, (player, enemy) => {
