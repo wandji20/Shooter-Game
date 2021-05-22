@@ -3,16 +3,19 @@ import Player from '../Entities/Player';
 import Enemy1 from '../Entities/Enemy1';
 import Enemy2 from '../Entities/Enemy2';
 import Enemy3 from '../Entities/Enemy3';
-// import {updateScore} from './../Score/score'
+import {getData} from './../Score/score'
+
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
     super({ key: 'GameScene' });
+    
+  }
+  init(){
     this.score = 0
   }
-
+  
   create() {
-
     this.background = this.add.image(240, 310, 'background');
     this.background.scale = 1.4;
 
