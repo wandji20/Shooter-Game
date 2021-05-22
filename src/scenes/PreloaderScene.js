@@ -24,8 +24,8 @@ export default class PreloaderScene extends Phaser.Scene {
 
   preload() {
     // display progress bar
-    const progressBar = this.add.graphics();
-    const progressBox = this.add.graphics();
+    const progressBar = this.add.graphics({ x: 240, y: 270 });
+    const progressBox = this.add.graphics({ x: 240, y: 370 });
     progressBox.fillStyle(0x222222, 0.8);
     progressBox.fillRect(240, 270, 320, 50);
 
@@ -119,12 +119,12 @@ export default class PreloaderScene extends Phaser.Scene {
   }
 
   ready() {
-    if (localStorage.getItem('MyShooterGamePlayerName')){
+    if (localStorage.getItem('MyShooterGamePlayerName')) {
       this.readyCount += 1;
       if (this.readyCount === 1) {
         this.scene.start('Title');
       }
-    }else{
+    } else {
       this.scene.start('PlayerInput');
     }
   }

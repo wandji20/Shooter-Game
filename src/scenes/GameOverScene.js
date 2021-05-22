@@ -1,13 +1,11 @@
 import Phaser from 'phaser';
-import Button from './../objects/user'
+import Button from '../objects/user';
 import bg2 from '../assets/bg2.png';
 import ScrollingBackground from '../Entities/ScrollingBackground';
 
+import { getData, postData } from '../Score/score';
 
-import {getData, postData} from './../Score/score'
-
-let url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/dyuOo2a4JQFxlzJCOAvy/scores'
-
+const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/dyuOo2a4JQFxlzJCOAvy/scores';
 
 export default class GameOverScene extends Phaser.Scene {
   constructor() {
@@ -18,7 +16,7 @@ export default class GameOverScene extends Phaser.Scene {
     // this.load.image('sprBtnPlay', sprBtnPlay);
     this.load.image('bg2', bg2);
   }
-  
+
   create() {
     this.backgrounds = [];
     for (let i = 0; i < 5; i += 1) {
@@ -37,18 +35,20 @@ export default class GameOverScene extends Phaser.Scene {
     });
     this.title.setOrigin(0.5);
 
+    this.myName = localStorage.getItem('MyShooterGamePlayerName');
+    this.myScore = parseInt(localStorage.getItem('MyShooterGamePlayerScore'), 10);
+    this.myHighScore = parseInt(localStorage.getItem('MyShooterGameHighScore'), 10);
 
-    this.myName = localStorage.getItem('MyShooterGamePlayerName')
-    this.myScore = parseInt(localStorage.getItem('MyShooterGamePlayerScore'))
-    this.myHighScore = parseInt(localStorage.getItem('MyShooterGameHighScore'))
-
-    this.highScore = this.add.text(this.game.config.width * 0.5, 200, `HIGH SCORE ${this.myHighScore}`, {
-      fontFamily: 'monospace',
-      fontSize: 30,
-      fontStyle: 'bold',
-      color: '#ffffff',
-      align: 'center',
-    });
+    this.highScore = this.add.text(
+      this.game.config.width * 0.5, 200, `HIGH SCORE ${this.myHighScore}`,
+      {
+        fontFamily: 'monospace',
+        fontSize: 30,
+        fontStyle: 'bold',
+        color: '#ffffff',
+        align: 'center',
+      },
+    );
     this.highScore.setOrigin(0.5);
 
     this.score = this.add.text(this.game.config.width * 0.5, 300, `SCORE ${this.myScore}`, {
@@ -69,27 +69,21 @@ export default class GameOverScene extends Phaser.Scene {
       'GameScene',
     );
 
-    let data = { 
-      "user": "John Doe",
-      "score": 42
+    async function createPlayerScore(scene) {
+      const response = await postData(url, { user: scene.myName, score: scene.myScore });
+      return response;
     }
 
-    
-    async function createPlayerScore(scene){
-      if (scene.myName && scene.myScore){
-        const response = await postData(url, {'user': scene.myName , 'score': scene.myScore })
-        console.log(response)
-      }
+    if (this.myName && this.myScore) {
+      createPlayerScore(this);
     }
-    createPlayerScore(this)
 
-    async function getplayers(){
-      let data = await getData(url)
-      let players = data.result
-      console.log(players)
+    async function getplayers() {
+      const data = await getData(url);
+      const players = data.result;
+      return players;
     }
-    getplayers()
-
+    getplayers();
   }
 
   update() {

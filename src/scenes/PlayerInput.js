@@ -1,14 +1,11 @@
-import Phaser from 'phaser'
+import Phaser from 'phaser';
 
-export default class PlayerInput extends Phaser.Scene{
-  constructor(){
-    super('PlayerInput')
+export default class PlayerInput extends Phaser.Scene {
+  constructor() {
+    super('PlayerInput');
   }
-  preload(){
 
-  }
-  create(){
-
+  create() {
     this.title = this.add.text(this.game.config.width * 0.5, 128, 'SHOOTER GAME', {
       fontFamily: 'monospace',
       fontSize: 48,
@@ -26,27 +23,26 @@ export default class PlayerInput extends Phaser.Scene{
       align: 'center',
     });
 
-    this.message.setOrigin(0.5)
+    this.message.setOrigin(0.5);
 
+    this.body = document.querySelector('body');
 
-    this.body = document.querySelector("body")
-    
-    this.input = this.body.appendChild(document.createElement('input'))
-    this.input.setAttribute('id', 'myText')
-    this.input.setAttribute('type', 'text')
+    this.input = this.body.appendChild(document.createElement('input'));
+    this.input.setAttribute('id', 'myText');
+    this.input.setAttribute('type', 'text');
 
-    this.nameInput = this.add.sprite(240, 350, 'user')
+    this.nameInput = this.add.sprite(240, 350, 'user');
 
     this.submit = this.add.sprite(240, 420, 'user').setInteractive();
-    this.submit.scale = 0.7
+    this.submit.scale = 0.7;
     this.text = this.add.text(0, 0, 'Submit', { fontSize: '25px', fill: '#fff' });
     Phaser.Display.Align.In.Center(this.text, this.submit);
 
     this.submit.on('pointerdown', () => {
-      if (/[a-z]/i.test(this.input.value) ){
+      if (/[a-z]/i.test(this.input.value)) {
         this.scene.start('GameScene');
-        this.input.style.display = 'none'
-        localStorage.setItem('MyShooterGamePlayerName', this.input.value)
+        this.input.style.display = 'none';
+        localStorage.setItem('MyShooterGamePlayerName', this.input.value);
       }
     });
   }

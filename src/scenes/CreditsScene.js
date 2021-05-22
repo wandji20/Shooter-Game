@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-expressions */
+
 import Phaser from 'phaser';
 
 export default class CreditsScene extends Phaser.Scene {
