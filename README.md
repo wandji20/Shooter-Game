@@ -19,7 +19,8 @@
 - PHASER 3
 - NPM
 - WEBPACK
-- Babel
+- BABEL
+- JEST
 
 #### [Play Game]('https://determined-shaw-27cf19.netlify.app/')
 
@@ -48,6 +49,10 @@ Play with the Arrows:
 - On your browser, make sure you point to the right address (i.e: http://localhost:8080/)
 
 test` to run all the tests.
+
+### JEST
+
+- Run `npm test` to see test results
 
 ## Author
 
