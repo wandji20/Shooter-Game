@@ -71,33 +71,17 @@ export default class GameOverScene extends Phaser.Scene {
       'HighScores',
       'PlayerScores',
     );
-    
-    // console.log([this.myScore, this.myName])
-    const createPlayerScore = async () => {
-    
-      try{
-        const response = await postData(url, { user: this.myName, score: this.myScore });
-        // console.log(response)
-        return response;
-      }catch (error){
-        return error
-        // console.log(error)
-      }
-    }
-    
-      createPlayerScore();
-    // async function getplayers(url) {
-    //   try{
-    //     const data = await getData(url);
-    //     const players = data.result;
-    //     return players;
 
-    //   }catch(error) {
-    //     console.log(error)
-    //     return error
-    //   }
-    // }
-    // getplayers(url);
+    const createPlayerScore = async () => {
+      try {
+        const response = await postData(url, { user: this.myName, score: this.myScore });
+        return response;
+      } catch (error) {
+        return error;
+      }
+    };
+
+    createPlayerScore();
   }
 
   update() {

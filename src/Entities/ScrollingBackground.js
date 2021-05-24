@@ -1,5 +1,4 @@
 import Phaser from 'phaser';
-// import Entity from './Entity'
 
 export default class ScrollingBackground {
   constructor(scene, key, velocityY) {
@@ -12,7 +11,6 @@ export default class ScrollingBackground {
 
   createLayers() {
     for (let i = 0; i < 2; i += 1) {
-      // creating two backgrounds will allow a continuous scroll
       const layer = this.scene.add.sprite(0, 0, this.key);
       layer.y = (layer.displayHeight * i);
       const flipX = Phaser.Math.Between(0, 10) >= 5 ? -1 : 1;

@@ -5,7 +5,6 @@ import Button from '../objects/user';
 
 const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/dyuOo2a4JQFxlzJCOAvy/scores';
 
-// const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/u7oe56SVK7YnY8Ch9Y2f/scores';
 export default class PlayerScores extends Phaser.Scene {
   constructor() {
     super('PlayerScores');
@@ -41,9 +40,8 @@ export default class PlayerScores extends Phaser.Scene {
       'Title',
     );
 
-
     const getplayers = async (url) => {
-      try{
+      try {
         const players = await getData(url);
         let y = 200;
         for (let i = 0; i < players.length; i += 1) {
@@ -59,12 +57,11 @@ export default class PlayerScores extends Phaser.Scene {
           );
           text.setOrigin(0.5, 0.5);
         }
-      } catch(error){
-        return error
+        return players;
+      } catch (error) {
+        return error;
       }
-
-
-    }
+    };
 
     getplayers(url);
   }
