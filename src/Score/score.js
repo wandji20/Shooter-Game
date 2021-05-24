@@ -1,3 +1,4 @@
+import fetch from 'node-fetch';
 const getFilteredList = (arr) => {
   let result = [];
   arr.forEach((player) => {
@@ -40,4 +41,4 @@ const postData = async (url, data) => {
   }
 };
 
-export { getData, postData };
+export { getData, postData, getFilteredList };
