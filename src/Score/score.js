@@ -1,30 +1,30 @@
 import fetch from 'node-fetch';
-const getFilteredList = (arr) => {
-  let result = [];
-  arr.forEach((player) => {
-    const item = result.find((obj) => obj.user === player.user);
-    if (!item) {
-      result.push(player);
-    } else if (item) {
-      item.score = item.score > player.score ? item.score : player.score;
-    }
-  });
-  result = result.sort((a, b) => b.score - a.score);
-  return result;
+import {sortPlayers} from './../Resources/resource'
+
+const getPlayers = async (url) => {
+  
+  let arr  = await getData(url)
+  let sortedPlayers = sortPlayers(arr)
+  if (sortedPlayers.length > 7){
+    sortedPlayers = sortedPlayers.slice(0,5)
+  }
+  return sortedPlayers
 };
+
+
 
 const getData = async (url) => {
   try {
     const response = await fetch(url);
     const data = await response.json();
-    const list = getFilteredList(data.result);
-    return list;
+    console.log(data.result)
+    return data.result;
   } catch (error) {
     return error;
   }
 };
 
-const postData = async (url, data) => {
+const postPlayer = async (url, data) => {
   try {
     const response = await fetch(url, {
       method: 'POST',
@@ -41,4 +41,4 @@ const postData = async (url, data) => {
   }
 };
 
-export { getData, postData, getFilteredList };
+export { getPlayers, postPlayer, getData };

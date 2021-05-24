@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import ScrollingBackground from '../Entities/ScrollingBackground';
-import { getData } from '../Score/score';
+import { getPlayers } from '../Score/score';
 import Button from '../objects/user';
 
 const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/dyuOo2a4JQFxlzJCOAvy/scores';
@@ -40,10 +40,10 @@ export default class PlayerScores extends Phaser.Scene {
       'Title',
     );
 
-    const getplayers = async (url) => {
+    const displayPlayers = async (url) => {
       try {
-        const players = await getData(url);
-        let y = 200;
+        const players = await getPlayers(url);
+        let y = 120;
         for (let i = 0; i < players.length; i += 1) {
           const text = this.add.text(
             this.game.config.width * 0.5, y += 50, `${players[i].user}: ${players[i].score}`,
@@ -59,11 +59,12 @@ export default class PlayerScores extends Phaser.Scene {
         }
         return players;
       } catch (error) {
+        console.log(error)
         return error;
       }
     };
 
-    getplayers(url);
+    displayPlayers(url);
   }
 
   update() {

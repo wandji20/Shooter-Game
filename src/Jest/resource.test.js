@@ -1,9 +1,4 @@
-
-import { getPlayers, postPlayer, getData } from './../Score/score'
-
-jest.mock('./../Score/score')
-
-const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/dyuOo2a4JQFxlzJCOAvy/scores';
+import {sortPlayers} from './../Resources/resource'
 
 const fakeData = [
   { user: 'sugar', score: 90 },
@@ -58,36 +53,8 @@ const fakeData = [
 
 ]
 
-const feedback = { result: 'Leaderboard score created correctly.' }
 
-getData.mockResolvedValue(fakeData)
-postPlayer.mockResolvedValue(feedback)
-
-
-
-test('the data is array', async () => {
-  const data = await getData(url);
-  expect(data).toEqual(fakeData);
+test('Sorts the Players by score', async () => {
+  const players = sortPlayers(fakeData)
+  expect((players[0])).toEqual({"score": 158, "user": "sugar"});
 });
-
-
-test('Post player score to API', async () => {
-  const data = await postPlayer(url, {"score": 150, "user": "sugar"} );
-  expect(data).toEqual({ result: 'Leaderboard score created correctly.' });
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

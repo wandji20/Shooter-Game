@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import Button from '../objects/user';
 import ScrollingBackground from '../Entities/ScrollingBackground';
 
-import { postData } from '../Score/score';
+import { postPlayer } from '../Score/score';
 
 const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/dyuOo2a4JQFxlzJCOAvy/scores';
 
@@ -74,7 +74,7 @@ export default class GameOverScene extends Phaser.Scene {
 
     const createPlayerScore = async () => {
       try {
-        const response = await postData(url, { user: this.myName, score: this.myScore });
+        const response = await postPlayer(url, { user: this.myName, score: this.myScore });
         return response;
       } catch (error) {
         return error;
