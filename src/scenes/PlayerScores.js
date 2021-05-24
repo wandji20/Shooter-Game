@@ -5,6 +5,7 @@ import Button from '../objects/user';
 
 const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/dyuOo2a4JQFxlzJCOAvy/scores';
 
+// const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/u7oe56SVK7YnY8Ch9Y2f/scores';
 export default class PlayerScores extends Phaser.Scene {
   constructor() {
     super('PlayerScores');
