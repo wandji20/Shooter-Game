@@ -59,7 +59,6 @@ export default class PlayerScores extends Phaser.Scene {
         }
         return players;
       } catch (error) {
-        console.log(error)
         return error;
       }
     };

@@ -10,6 +10,8 @@
 
 ![screenshot](./src/assets/readme/playing.png)
 
+## [Game Design Documentation]('./GDD.md')
+
 ## Built With
 
 - HTML

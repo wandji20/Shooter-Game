@@ -1,7 +1,6 @@
+import { postPlayer, getData } from '../Score/score';
 
-import { getPlayers, postPlayer, getData } from './../Score/score'
-
-jest.mock('./../Score/score')
+jest.mock('./../Score/score');
 
 const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/dyuOo2a4JQFxlzJCOAvy/scores';
 
@@ -56,38 +55,19 @@ const fakeData = [
   { user: 'wandji', score: '0' },
   { score: 10, user: 'wandji' },
 
-]
+];
 
-const feedback = { result: 'Leaderboard score created correctly.' }
+const feedback = { result: 'Leaderboard score created correctly.' };
 
-getData.mockResolvedValue(fakeData)
-postPlayer.mockResolvedValue(feedback)
-
-
+getData.mockResolvedValue(fakeData);
+postPlayer.mockResolvedValue(feedback);
 
 test('the data is array', async () => {
   const data = await getData(url);
   expect(data).toEqual(fakeData);
 });
 
-
 test('Post player score to API', async () => {
-  const data = await postPlayer(url, {"score": 150, "user": "sugar"} );
+  const data = await postPlayer(url, { score: 150, user: 'sugar' });
   expect(data).toEqual({ result: 'Leaderboard score created correctly.' });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

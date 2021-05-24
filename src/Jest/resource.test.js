@@ -1,4 +1,4 @@
-import {sortPlayers} from './../Resources/resource'
+import sortPlayers from '../Resources/resource';
 
 const fakeData = [
   { user: 'sugar', score: 90 },
@@ -51,10 +51,9 @@ const fakeData = [
   { user: 'wandji', score: '0' },
   { score: 10, user: 'wandji' },
 
-]
-
+];
 
 test('Sorts the Players by score', async () => {
-  const players = sortPlayers(fakeData)
-  expect((players[0])).toEqual({"score": 158, "user": "sugar"});
+  const players = sortPlayers(fakeData);
+  expect((players[0])).toEqual({ score: 158, user: 'sugar' });
 });
