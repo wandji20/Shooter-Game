@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import ScrollingBackground from '../Entities/ScrollingBackground';
 import { getData } from '../Score/score';
+import Button from '../objects/user';
 
 const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/dyuOo2a4JQFxlzJCOAvy/scores';
 
@@ -29,41 +30,42 @@ export default class PlayerScores extends Phaser.Scene {
       },
     );
     title.setOrigin(0.5, 0.5);
-    function getFilteredList(arr) {
-      let result = [];
-      arr.forEach((player) => {
-        const item = result.find((obj) => obj.user === player.user);
-        if (!item) {
-          result.push(player);
-        } else if (item) {
-          item.score = item.score > player.score ? item.score : player.score;
+
+    this.menu = new Button(
+      this,
+      240,
+      550,
+      'user',
+      'Menu',
+      'Title',
+    );
+
+
+    const getplayers = async (url) => {
+      try{
+        const players = await getData(url);
+        let y = 200;
+        for (let i = 0; i < players.length; i += 1) {
+          const text = this.add.text(
+            this.game.config.width * 0.5, y += 50, `${players[i].user}: ${players[i].score}`,
+            {
+              fontFamily: 'monospace',
+              fontSize: 30,
+              fontStyle: 'bold',
+              color: '#ffffff',
+              align: 'center',
+            },
+          );
+          text.setOrigin(0.5, 0.5);
         }
-      });
-      result = result.sort((a, b) => b.score - a.score);
-      return result;
-    }
-
-    async function getplayers(url, scene) {
-      const data = await getData(url);
-      const players = data.result;
-      const filteredList = getFilteredList(players);
-      let y = 200;
-      for (let i = 0; i < filteredList.length; i += 1) {
-        const text = scene.add.text(
-          scene.game.config.width * 0.5, y += 50, `${filteredList[i].user}: ${filteredList[i].score}`,
-          {
-            fontFamily: 'monospace',
-            fontSize: 30,
-            fontStyle: 'bold',
-            color: '#ffffff',
-            align: 'center',
-          },
-        );
-        text.setOrigin(0.5, 0.5);
+      } catch(error){
+        return error
       }
+
+
     }
 
-    getplayers(url, this);
+    getplayers(url);
   }
 
   update() {

@@ -19,7 +19,7 @@
 - WEBPACK
 - Babel
 
-#### [Play Game](https://determined-shaw-27cf19.netlify.app/)
+#### [Play Game]('https://determined-shaw-27cf19.netlify.app/')
 
 ## Instructions to Play
 
@@ -35,7 +35,7 @@ Play with the Arrows:
 ### Getting Started
 
 - Go to your terminal
-- Put `https://github.com/wandji20/Shooter-Game`
+- Enter `git clone https://github.com/wandji20/Shooter-Game`
 - Go to the project folder with `cd Shooter-Game`
 
 ### Setup

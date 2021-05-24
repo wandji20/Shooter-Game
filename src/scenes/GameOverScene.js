@@ -69,6 +69,15 @@ export default class GameOverScene extends Phaser.Scene {
       'GameScene',
     );
 
+    this.highScores = new Button(
+      this,
+      240,
+      500,
+      'user',
+      'HighScores',
+      'PlayerScores',
+    );
+
     async function createPlayerScore(scene) {
       const response = await postData(url, { user: scene.myName, score: scene.myScore });
       return response;
