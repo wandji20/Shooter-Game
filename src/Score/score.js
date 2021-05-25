@@ -15,7 +15,7 @@ const getPlayers = async (url) => {
   const arr = await getData(url);
   let sortedPlayers = sortPlayers(arr);
   if (sortedPlayers.length > 7) {
-    sortedPlayers = sortedPlayers.slice(0, 5);
+    sortedPlayers = sortedPlayers.slice(0, 7);
   }
   return sortedPlayers;
 };
