@@ -22,7 +22,7 @@
 - BABEL
 - JEST
 
-#### [Play Game](https://determined-shaw-27cf19.netlify.app/)
+#### [Play Game](https://wandji-shooter-game.netlify.app/)
 
 ## Instructions to Play
 
