@@ -1,4 +1,3 @@
-// import Phaser from 'phaser';
 import Entity from './Entity';
 import PlayerBullet from './PlayerBullet';
 
@@ -43,7 +42,7 @@ export default class Player extends Entity {
   }
 
   onDestroy() {
-    this.scene.time.addEvent({ // go to game over scene
+    this.scene.time.addEvent({
       delay: 1000,
       callback() {
         this.scene.scene.start('GameOverScene');

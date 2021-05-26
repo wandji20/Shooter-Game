@@ -1,20 +1,14 @@
 import Phaser from 'phaser';
 import Button from '../objects/user';
-import bg2 from '../assets/bg2.png';
 import ScrollingBackground from '../Entities/ScrollingBackground';
 
-import { getData, postData } from '../Score/score';
+import { postPlayer } from '../Score/score';
 
 const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/dyuOo2a4JQFxlzJCOAvy/scores';
 
 export default class GameOverScene extends Phaser.Scene {
   constructor() {
     super({ key: 'GameOverScene' });
-  }
-
-  preload() {
-    // this.load.image('sprBtnPlay', sprBtnPlay);
-    this.load.image('bg2', bg2);
   }
 
   create() {
@@ -69,21 +63,25 @@ export default class GameOverScene extends Phaser.Scene {
       'GameScene',
     );
 
-    async function createPlayerScore(scene) {
-      const response = await postData(url, { user: scene.myName, score: scene.myScore });
-      return response;
-    }
+    this.highScores = new Button(
+      this,
+      240,
+      500,
+      'user',
+      'HighScores',
+      'PlayerScores',
+    );
 
-    if (this.myName && this.myScore) {
-      createPlayerScore(this);
-    }
+    const createPlayerScore = async () => {
+      try {
+        const response = await postPlayer(url, { user: this.myName, score: this.myScore });
+        return response;
+      } catch (error) {
+        return error;
+      }
+    };
 
-    async function getplayers(url) {
-      const data = await getData(url);
-      const players = data.result;
-      return players;
-    }
-    getplayers(url);
+    createPlayerScore();
   }
 
   update() {

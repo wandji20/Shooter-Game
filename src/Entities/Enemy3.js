@@ -6,7 +6,7 @@ export default class Enemy3 extends Entity {
   constructor(scene, x, y) {
     super(scene, x, y, 'enemy3', 'Enemy3');
     this.body.velocity.y = Phaser.Math.Between(50, 100);
-    this.points = 10;
+    this.points = 12;
 
     this.shootTimer = this.scene.time.addEvent({
       delay: 1500,

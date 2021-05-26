@@ -116,8 +116,8 @@ export default class GameScene extends Phaser.Scene {
         localStorage.setItem('MyShooterGamePlayerScore', `${this.score}`);
         const highScore = localStorage.getItem('MyShooterGameHighScore');
         if (highScore) {
-          const newHighScore = parseInt(highScore, 10) > this.score
-            ? parseInt(highScore, 10) : this.score;
+          const newHighScore = parseInt(highScore, 10) < this.score
+            ? this.score : parseInt(highScore, 10);
           localStorage.setItem('MyShooterGameHighScore', newHighScore);
         } else {
           localStorage.setItem('MyShooterGameHighScore', this.score);
